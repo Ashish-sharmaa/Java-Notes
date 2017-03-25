@@ -1,0 +1,324 @@
+﻿1.  System.out.print(); //No newline //
+System is a final class from java.lang package.// Final class cannot be inherited by other.
+out is the reference to object of PrintStream class and a static member of System class.
+println is a method(function) of PrintStream class.
+
+2.  No concept of headers, goto(), multiple inheritance with help of classes and public variables.
+
+3.  First letter of each word of a class is capital, function has first letter of first word as small while other words first letters are capital and packages contain no capital letter( No space in between any name in all cases).
+
+4.  Four access specifier- 3 as in C++ and one extra-default. If no specifier is specified, then it is default. Item can be used within the package. Have to add specifier before each declaration(No : after specifier).
+
+5.  A Package can be defined as a grouping of related types (classes, interfaces, enumerations and annotations ) providing access protection and name space management.
+6.  In case of nested classes, outer one is always public or deafault. Default value of boolean variable is false.
+
+7.  Main is made public so that jvm could access it from outside class.
+
+8.  Accessing static member of a class is done by dot operator.
+
+9.  We use UNICODE, character storing 2 bytes.
+
+10. Degrading type of data implicitly will give error while upgrading doesn't.But explicitly can be done with typecasting.
+
+11. Default value of instance variable is Zero.
+
+12. Unreferenced block of a class( earlier referenced by a variable but now that variable is referencing to other block) is called Garbage block.
+
+13. Function variables-Local variable, variables and functions of Class-instances, static variables of class-class variable.
+
+14. In C++, we can have static variables in normal member function of a class(Works as static variable), but not in JAVA(no static variable in any function), not even in main().e
+
+16. We cannot have two or more public classes in one java file. Either no public class( Also no other specifier allowed) or class having void main as public class. We can have multiple public classes(separately in distinct java files) in one package.
+
+17. Wrapper Class- To make JAVA purely OOP, we tend to use convert class variables in place of primitive datatypes. Wrapper class name is similar to variable datatype names except that First letter is capital and complete name of datatype is used.
+
+18. Functions of wrapper classes:
+(i)  Integer i1=Integer.valueOf("23232"); //i1 is a reference to Integer class which is returned by static method valueOf()  of Integer class.
+     To use i1 -> int i=i1.intvalue();  //i1 is reference. Therefore, value() is not a static method. (Return type is inint)
+     Also, Integer i=Integer.valueOf("0001110",2); // Will take String as binary.
+(ii) double i=Double.parseDouble("34.4"); //return type is  double and parseDouble is a static method of class Double.
+
+19. final variable can be assigned value later but only once.
+a final static variable required to be assigned value at the time of declaration only( not in constructor (as it is static)). If not, then error will be generated. Ex.-static final ab;  // is a error have to write ab=34;
+
+20. A final class cannot be extended.
+
+21. Can wide the datatype i.e. can convert char to int, float, double etc. but, cannot narrow the datatype i.e. int to char.(ex-int a; char c=a(ERROR) )
+     So, have to use Typecasting here(any datatype to any other) (Ex.- int a;  char b;  b=char(a); )
+     Similarly, float fa=3.14 (ERROR) ( conversion from double to float). So, write fa=3.14f.
+
+22. About null:- (i) null is case sensitive i.e. cannot write NULL.
+   (ii) Unlike common misconception, null is not Object or neither a type. It’s just a special value, which can be assigned to any reference type and you can type cast null to any type
+   (iii) it can also be type casted to Integer:- Integer myItr = (Integer) null; It cannot be passed to 'primitive datatypes'.If a non-primitive datatype having null value is unboxed to primitive one then it will give run-time exception 'Null pointer exception'.
+ public class Test
+ {
+    public static void main (String[] args) throws java.lang.Exception
+    {
+            //An integer can be null, so this is fine
+            Integer i = null;
+             
+            //Unboxing null to integer throws NullpointerException
+            int a = i;
+    }
+ }
+ (iv) We cannot call a non-static method on a reference variable with null value, it will throw NullPointerException, but we can call static method with reference variables with null values. Since static methods are bonded using static binding, they won’t throw Null pointer Exception.
+
+public class Test
+{            
+    public static void main(String args[])
+    {
+        Test obj= null;
+        obj.staticMethod();
+        obj.nonStaticMethod();                           
+    }
+    private static void staticMethod()
+    {
+        //Can be called by null reference
+        System.out.println("static method, can be called by null reference");
+    }      
+    private void nonStaticMethod()
+    {
+        //Can not be called by null reference
+        System.out.print(" Non-static method- ");
+        System.out.println("cannot be called by null reference");
+    }}
+   (v) == and != The comparision and not equal to operators are allowed with null in Java. This can made useful in checking of null with objects in java.
+public class Test
+{            
+    public static void main(String args[])
+    {
+     
+    //return true;( Print)
+    System.out.println(null==null);
+}
+
+23. The java instanceof operator is used to test whether the object is an instance of the specified type (class or subclass or interface). At run time, the result of the instanceof operator is true if the value of the Expression is not null.
+   public class Test
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Integer i = null;
+        Integer j = 10;
+             
+        //prints false
+        System.out.println(i instanceof Integer);
+         
+        //Compiles successfully
+        System.out.println(j instanceof Integer);
+    }
+}
+
+ Integer b=4;
+ Double d=5.7;
+ Double e;
+ System.out.println(b instanceof Double); //Compilation error as Double and Integer are not super-sub classes.
+ System.out.println(e instanceof Double); //  Again error as cannot use e before initializing it.
+ System.out.println(d instanceof Double); //return true.
+
+24. Static methods can be easily overloaded but cannot be overridden instead they are hidden.
+  As static methods are resolved statically (i.e. at compile time) based on the class they are called on(Type of reference) and not dynamically as in the case with instance methods which are resolved polymorphically based on the runtime type of the object(object they are pointing to). 
+
+class Super
+{
+  public static void foo(){System.out.println("I am foo in Super");}
+  public void bar(){System.out.println("I am bar in Super");}
+}
+class Child extends Super
+{
+  public static void foo(){System.out.println("I am foo in Child");}//Hiding     //Had to make it static otherwise complietime error
+  public void bar(){System.out.println("I am bar in Child");}//Overriding
+  public static void main(String[] args)
+  {
+     Super sup = new Child();//Child object is reference by the variable of type Super
+     Child child = new Child();//Child object is referenced by the variable of type Child
+     sup.foo();//It will call the method of Super.
+     child.foo();//It will call the method of Child.
+
+     sup.bar();//It will call the method of Child.
+     child.bar();//It will call the method of Child again.
+  }
+}
+Output
+ I am foo in Super
+ I am foo in Child
+ I am bar in Child
+ I am bar in Child
+ Static method can not access this or super.
+Unlike methods static has no effect on variables eg:-
+ class pp
+{
+ int i=4;
+ static int j=5;
+ static int k=88;
+}
+class Practice extends pp
+{
+   int i=313;
+  int j=343;
+   static int k=22;
+public static void main(String arg[])
+{
+ int i=31;
+ int j=34;
+ pp a=new Practice();  //No effect whether static or not output will also be base on type of refernce(compile time allocation)
+ Practice b=new Practice();
+ System.out.println(a.i+" "+a.j+" "+a.k" "+b.i+" "+b.j+" "+b.k); //output is 4 5 88 313 343 22
+}
+An instance method cannot override a static method, and a static method cannot hide an instance method. For example, the following program has two compiler errors.( ex give above in Super-child program)
+
+25. Unlike C++, Java supports a special block, called static block (also called static clause) which can be used for static initializations of a class(only static variables but it can declare its own non-static variable). This code inside static block is executed only once: the first time you make an object of that class or the first time you access a static member of that class (even if you never make an object of that class). Under static block we can access only static methods and static variables of the class.
+// filename: Main.java
+class Test {
+    static int i;
+    int j;
+    static {
+        i = 10;
+        System.out.println("static block called ");
+    }
+    Test(){
+        System.out.println("Constructor called");
+    }
+}
+ 
+class Main {
+    public static void main(String args[]) {
+ 
+       // Although we have two objects, static block is executed only once.
+       Test t1 = new Test();
+       Test t2 = new Test();
+    }
+}
+output-static block called
+       Constructor called
+       Constructor called
+
+Only nested classes can be static.
+
+26. The automatic conversion of primitive data types into its equivalent Wrapper type is known as autoboxing and opposite operation is known as unboxing.
+
+27.Direct Conversions are done for both autoboxing and unboxing. Also direct calculations(inter) between primitive and non-primitive variables. 
+
+28. Unlike C++,Java has argc[0] as first argument passed to commandline( not the name of file
+
+29. Creating package :- First, in program write 'package abcd;'(first statement), then can import other packages starting from second line. Then compile by using command javac -d . Practice.java . This will create a package named abcd containing Practice class inside it. Now, run it by using java abcd.Practice only not by going in abcd folder.
+
+30. private protected- can be accessed by child class anywhere. protected- can be accessed by everyone than other class(not a sub-class) in other package.
+
+31. We can write only like 'return ;' in constructor. Also we can create a object like :-  new Abc(); // No reference varible.;
+
+32. Private members are inherited to child class but not accessible.
+
+33. We can intialize class as well instance variables in instance initializing block. This block will become the first block of codes for constructor, so Every new ABC() is called, this block will be executed  (one for each object created) before constructor statements. There is no concept of initialization block in C/C++.We can call other functions, print something in the instance initializing block.
+Also can have declare new variables inside the block but scope is within that block only not for class methods.
+Initialization block has no return, super or this keyword.
+Static initialization block is used to initialize static members of class. Syntax- static{}  . It can access only static members of the class. It is called only once in a program when either static member of class is called or object is made(new ABC())
+Ex.    in main()- A.q=3;   // q is static member of class A, then before displaying this value of q, it will give call to static initialization block and display old value of q;
+We can have more than 1 initialization blocks, on invoking they will execute in order of written in code.
+
+34. 5 ways to use final keyword(constant)
+    (i) final instance variable- must be initialized with either constructor,initialization block or at time of declaration ( not inside any 
+	normal function).
+    (ii) final static variable- initialized with either declaration or inside static(not in simple one) initialization block.
+    (iii)final local variable- initialized  only once, but have to initialize it before use.
+    (iv) final class - cannot be inherited.
+    (v)  final method -cannot be overridden in child class but can be overloaded but remember for that we have to make reference object of child 
+         class as we cannot achieve overloading with parent class reference object.
+
+35. this can't be used in static member functions or static blocks, it can only be used inside instance member functions to access object
+references inside methods. this() is used to invoke constructor of same class, so it should be in the other type of constructor(argumented like) as first statement, and cannot be used in instance methods, but this.dis() can be callled from any method.
+
+36. super() can be used with sub-class constructor only( not with instance function) as it is the constructor of super class and has to be called first while invoking child class constructor. super.dis() can be called with instance method of child class.
+super.super() gives error.
+super and this only differ that former calls to super class and latter one to the same class.
+super is used to call parent method from child method in case both having same name of method.
+
+37. static members do get inheritance. mean they can be called as chil.abb();  // chil is child class name and abb() is parent class static method. But static variables cannot be inherited.
+
+38. Constructor are not inherited. Constructor call by super() or this() should be the first line of the constructor( which is calling).
+
+39. In c++, there is no abstract keyword. Abstract class is determined by one pure virtual methon in it( In case of C++).Contrary to it, Java has no virtual keyword, it has abstract keyword.
+Can not make object of abstract class.
+Abstract method is equivalent to pure virtual function in C++.
+We can create refernce to abstract class but cannot create an object like Parent pp=new Child();
+If methods of the parent class is having a non-abstract method then it can be used normally by child class object.
+If any of method of the class is abstract method, then class needs to be declared as abstract but if a class is abstract then methods not ought to be abstract. 
+A constructor cannot be made abstract and also abstract class do have a defualt constructor which can be given call by the child class object.
+
+40. In java, we can make function call like fun(23) //passing constants as parameters.
+
+41. A parent class reference pointed to child object cannot access those methods in child which are not in parent itself.
+
+42.  Interface have all methods as  public by default and abstract and also we cannot use others specifiers in any of its method.
+Its all variables are final static in nature and methods are non-static. 
+Interface cannot have constructor whereas abstract class can have as all members variables of interface are final static in nature. 
+An interface can extends interface whereas a class implements interface
+Like abstract class, interface can have reference variable as in nedeed in multiple inheritance like:-
+interface A{ void f1();}
+interface B{ void f2();}
+class C implements A,B {void f3(){} void f1(){}  void f2(){} } // Note implements A,B same in case of class to class inheritance. extends X,Y
+p.s.v.(){ C cc=new C();    // Can access all the functions
+          A cc=new C();    // Can't access f2 and f3
+          B cc =new C(); }  // Can't access f1 and f3 as f1 is from other interface and f3 is not declared in B
+We cannot acheive multiple inheritance by making all the method of two parent classes as abstract.
+When implementing from an interface, do remember that we can not weakify the access specifier, so have to define method as public only.
+
+43. Scanner class is final class( no child class possible) in java.util package.It fetch input from the buffer.
+    System.in will fetch data from the keyboard to the buffer.
+    nextLine() -> will fetch all the strings from one input line.
+
+44. int a[]=new int[5]{2,3,4,4,5} //Error as cannot specify size and elements at same time
+           =new int[2]{2,3,4} //Error as size does not match + above reason.
+           = new int[]{2,3,4} // Will run normally
+  can write like int ac a=new int[4];
+  can write int a[]=new int[x] and get x as input from keyboard;
+  array size by a.length;
+  default value of a[0]=a[1] is 0; for char a[]=new char[3], default value is '/0';
+  if int a[];  S.o.p(a[0]);  // Error as a is not initialized.
+  if S.o.p(a); //Random string value;
+
+45. We can have int a[][]=new int [3][]; (if we print a[0] -> null, print(a) ->random string, print(a[0][0])-> ERROR)
+                         =new int [][3]; //ERROR
+                         =new int [][];  //ERROR
+    int a[][]=new int [3][4];
+    a.length=>3; a[0].length=>4;
+    We can also have int a[][]=int [3][];  and a[0]=new int [5]; a[1]=new int[7]; a[2]=new int [2]; a.length=>3 and a[0].length=>5 and 
+    a[1].length=>7 and a[2].length=>2;
+
+46. String is a final class( can not be extended), immutable class(once initialized then can not make changes, for that new reference has to be created). [import java.lang.String]
+    s1="abc"
+    s2="abc";   // s1 and s2 pointing to same string object
+    SS="ab"+"c"; // points to same string object as by s1 and s2
+    VV=s1+2.3; // Vv="abc2.3"
+    s3=new String("abc");  // point to unique string object
+    s4=new String ("abc"); // point to unique string object
+    s1==s2 //Find whether references contain  same address or not
+    s1.equals(s2) // Actually compare the string not the references
+    Therefore, s1==s2 =>true,   s1==s3 =>false, s1.equals(s3) =>true,  s4==s3 =>false, s4.equals(s3) =>true;
+   String class supports + and += operators( for concatenation)
+
+47. Object class is the parent class of all other classes( String, Int, Float etc.) and user-defined classes too(only those who are not child classes as multiple inheritance is not allowed in JAVA).
+
+48. String methods->(all methods follow 0 based indexing) s.charAt(2); s.indexOf("string or character",3);//3 is start position does not    modify ans. if character is after/on position 3, if not found=>-1 // similarly s.lastIndexOf(" ",3);// only difference that it starts from 3 and moves towards left(first one towards right), no change in ans. index(starting index of string or character to be found). 
+   s1.equals(s2) or s1.equalsIgnoreCase(s2)//return true or false, s1.compareTo(s2) //return +ive int if s1[i]>s2[i] , 0 if s1[i]==s2[i], else -ive.
+   s1.substring(st index, ed index) // string will be formed from [st,ed)
+
+49. FileOutputStream is meant for writing streams of raw bytes such as image data(byte stream). For writing streams of characters, consider using FileWriter(character stream(bunch of bits grouped as 1 character).
+    Methods in File Class-> File fp; fp.createNewFile(); // would not create if already a file with same name existing. 
+    fp=new File("/path/name");.fp.exits()// return boolean whether file exists or not. fp.length() // return no. of charatcer(int,float) in the file. fp.getName()// return name of the file.
+
+50. FileOutputStream is subclass of abstract class OutputStream(output bytes to a file). Syntax=> fp=new Fil.. ("../path",boolean)or w/o boolean (default is false). boolean is true if want to append.
+    if no such file is found, then a new one is created. Now can write characters as fp.write(c)// c is character; and fp.close() to copy from buffer to hard disk.
+    FileInputStream fp=new Fi..("  "); file must be present. i=fp.read(); //fp.read takes every element on file as character(whether space,new line etc.)( if file contains 10 20) i is 49 48 32 50 48 10(10 for line feed ('\n')) so c=(char)i gives actuall value. When i=-1(0<=ascii<=256) it reaches EOF( from now on i is always gonna be -1)
+
+51. BufferedWriter first write to a buffer, then when buffer is full, it is emptied by writing to target file. Syntax- Buff.... bf=new Buff...
+   (FileWriter obj,size(optional, to describe size of buffer)), then bf.write(" dfd");
+   BufferedReader-> bf.read()//same as FileInputStream( return -1 on finished). bf.read(char. array,intial index of char array to start storing input char, no. of characters from input file to read). String s=bf.readLine();// s=null when finished reading.
+
+52. finalize-> default present in object class as protected void finalize() throws throwable{}; . can override it or call it explicitly by ab.finalize() but then it will not serve the purpose of garbage collection as when called by garbage collector. If any exception occurs in finalize() code then it is ignored. if child class finalize() is called then parent's is not ,however can be called like finalize(){ super.finalize() }; in class b(child class)
+
+
+   
+	
+
+
+ 
